@@ -19,3 +19,5 @@ router.get('/:id/artisans', categorieController.getArtisansByCategorie);
 
 // GET /api/categories/:id/stats - Stats d'une catégorie
 router.get('/:id/stats', categorieController.getCategorieStats);
+
+module.exports = router;

@@ -22,6 +22,9 @@ router.get('/search', artisanController.searchArtisans);
 // GET /api/artisans/stats - Statistiques globales
 router.get('/stats', artisanController.getStats);
 
+// GET /api/artisans/notes/top - Meilleurs artisans par note
+router.get('/notes/top', artisanController.getTopRatedArtisans);
+
 // =============================================
 // ROUTES PAR ID
 // =============================================
@@ -41,8 +44,5 @@ router.get('/specialite/:specialiteId', artisanController.getArtisansBySpecialit
 
 // GET /api/artisans/region/:ville - Par région/ville
 router.get('/region/:ville', artisanController.getArtisansByVille);
-
-// GET /api/artisans/notes/top - Meilleurs artisans par note
-router.get('/notes/top', artisanController.getTopRatedArtisans);
 
 module.exports = router;

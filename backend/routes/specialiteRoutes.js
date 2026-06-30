@@ -16,3 +16,5 @@ router.get('/:id/artisans', specialiteController.getArtisansBySpecialite);
 
 // GET /api/specialites/:id/stats - Stats d'une spécialité
 router.get('/:id/stats', specialiteController.getSpecialiteStats);
+
+module.exports = router;
