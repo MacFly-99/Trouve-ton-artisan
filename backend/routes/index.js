@@ -10,4 +10,12 @@ router.use('/artisans', artisanRoutes);
 router.use('/categories', categorieRoutes);
 router.use('/specialites', specialiteRoutes);
 
+router.get('/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
+});
+
 module.exports = router;

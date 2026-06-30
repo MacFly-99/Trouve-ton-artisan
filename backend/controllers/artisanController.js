@@ -137,6 +137,69 @@ exports.getTopArtisans = async (req, res, next) => {
 };
 
 // =============================================
+// 3. RECHERCHE AVANCÉE
+// =============================================
+exports.searchArtisans = async (req, res, next) => {
+    try {
+        const { q, categorie, ville, minNote } = req.query;
+
+        if (!q || q.trim().length < 2) {
+            return res.status(400).json({
+                success: false,
+                message: 'La recherche doit contenir au moins 2 caractères'
+            });
+        }
+
+        const where = {
+            [Op.or]: [
+                { nom: { [Op.like]: `%${q}%` } },
+                { a_propos: { [Op.like]: `%${q}%` } }
+            ]
+        };
+
+        // Filtres supplémentaires
+        if (ville) {
+            where.localisation = { [Op.like]: `%${ville}%` };
+        }
+
+        if (minNote) {
+            where.note = { [Op.gte]: parseFloat(minNote) };
+        }
+
+        const includeOptions = {
+            model: Specialite,
+            as: 'specialite'
+        };
+
+        if (categorie) {
+            includeOptions.include = [{
+                model: Categorie,
+                as: 'categorie',
+                where: { nom: categorie }
+            }];
+        }
+
+        const artisans = await Artisan.findAll({
+            where,
+            include: [includeOptions],
+            order: [
+                ['note', 'DESC'],
+                ['nom', 'ASC']
+            ]
+        });
+
+        res.json({
+            success: true,
+            query: q,
+            count: artisans.length,
+            data: artisans
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// =============================================
 // 4. STATISTIQUES GLOBALES
 // =============================================
 exports.getStats = async (req, res, next) => {

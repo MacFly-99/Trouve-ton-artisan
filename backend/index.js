@@ -8,40 +8,38 @@ const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // =============================================
 // SÉCURITÉ
 // =============================================
 
-// Helmet pour sécuriser les headers HTTP
 app.use(helmet());
 
-// Rate limiting pour éviter les attaques par force brute
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // 100 requêtes par IP
+    max: 100,
     message: {
         success: false,
         message: '❌ Trop de requêtes, veuillez réessayer plus tard'
     }
 });
+
 app.use('/api', limiter);
 
-// CORS
 app.use(cors({
     origin: process.env.FRONTEND_URL || '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'x-api-key']
 }));
 
-// Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // =============================================
-// LOGGING (optionnel)
+// LOGGING
 // =============================================
+
 app.use((req, res, next) => {
     console.log(`📝 ${req.method} ${req.url}`);
     next();
@@ -51,7 +49,6 @@ app.use((req, res, next) => {
 // ROUTES
 // =============================================
 
-// Health check
 app.get('/', (req, res) => {
     res.json({
         name: '🚀 Trouve ton artisan - API',
@@ -66,7 +63,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// Routes API
 app.use('/api', routes);
 
 // 404 handler
@@ -83,6 +79,7 @@ app.use(errorHandler);
 // =============================================
 // DÉMARRAGE
 // =============================================
+
 app.listen(PORT, () => {
     console.log(`✅ Serveur démarré sur http://localhost:${PORT}`);
     console.log(`📌 API Key: ${process.env.API_KEY}`);
