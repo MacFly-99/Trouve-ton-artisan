@@ -1,0 +1,204 @@
+// Variables
+$primary: #0074c7;
+$primary-dark: #00497c;
+$background: #f1f8fc;
+$text-color: #384050;
+$accent-red: #cd2c2e;
+$accent-green: #82b864;
+$white: #ffffff;
+
+// Import Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Graphik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: $background;
+  color: $text-color;
+}
+
+// Header
+.header {
+  background-color: $primary-dark;
+  color: $white;
+  padding: 16px 0;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    .subtitle {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      font-weight: normal;
+    }
+  }
+
+  .nav-link {
+    color: $white !important;
+
+    &:hover {
+      color: $accent-green !important;
+    }
+  }
+}
+
+// Search Bar
+.search-bar {
+  position: relative;
+
+  input {
+    padding-right: 40px;
+    border-radius: 20px;
+    border: 2px solid $primary;
+
+    &:focus {
+      border-color: $primary-dark;
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $primary;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+}
+
+// Artisan Card
+.artisan-card {
+  background: $white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .artisan-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $primary-dark;
+    margin-bottom: 4px;
+  }
+
+  .artisan-specialite {
+    color: $primary;
+    font-size: 0.9rem;
+  }
+
+  .artisan-location {
+    color: $text-color;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  .stars {
+    color: #ffc107;
+    font-size: 1.1rem;
+  }
+}
+
+// Steps
+.steps-section {
+  padding: 48px 0;
+
+  .step-number {
+    background: $primary;
+    color: $white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 16px;
+  }
+
+  .step-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: $primary-dark;
+  }
+
+  .step-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+}
+
+// Footer
+.footer {
+  background-color: $primary-dark;
+  color: $white;
+  padding: 48px 0;
+  margin-top: auto;
+
+  a {
+    color: rgba($white, 0.8);
+    text-decoration: none;
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+
+  .footer-address {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+}
+
+// 404
+.not-found {
+  text-align: center;
+  padding: 64px 0;
+
+  .not-found-icon {
+    font-size: 6rem;
+    color: $primary;
+    margin-bottom: 24px;
+  }
+
+  .not-found-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: $primary-dark;
+  }
+
+  .not-found-text {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    margin-bottom: 32px;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .header .logo {
+    font-size: 1.2rem;
+  }
+
+  .artisan-card {
+    padding: 16px;
+  }
+}
